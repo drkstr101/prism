@@ -1,0 +1,12 @@
+{
+  "name": "@apsphysics/stack",
+  "version": "0.0.0",
+  "scripts": {},
+  "private": true,
+  "devDependencies": {
+    "@nx-tools/nx-container": "^6.2.0",
+    "@nx/workspace": "20.4.0",
+    "nx": "20.4.0",
+    "prettier": "^2.6.2"
+  }
+}

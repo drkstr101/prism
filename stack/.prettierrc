@@ -1,0 +1,6 @@
+{
+  "singleQuote": true,
+  "htmlWhitespaceSensitivity": "strict",
+  "printWidth": 98,
+  "tabWidth": 2
+}

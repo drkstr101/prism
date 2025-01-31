@@ -1,0 +1,6 @@
+.idea
+
+.docker/certs/*
+!.docker/certs/.gitkeep
+
+.env.local

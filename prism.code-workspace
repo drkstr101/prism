@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "stack"
+		}
+	],
+  "settings": {
+    "cSpell.words": [
+      "traefik"
+    ]
+  }
+}

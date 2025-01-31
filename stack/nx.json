@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": ["default"],
+    "sharedGlobals": []
+  },
+  "plugins": [
+    {
+      "plugin": "@nx-tools/nx-container",
+      "options": {
+        "build": {
+          "executor": "@nx-tools/nx-container:build",
+          "options": {
+            "push": false,
+            "tags": ["registry.local:5000/{projectName}"]
+          }
+        }
+      }
+    }
+  ]
+}
