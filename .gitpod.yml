@@ -1,8 +1,14 @@
+image:
+  file: dev-stack/gitpod/Dockerfile
+
 # List the start up tasks. Learn more: https://www.gitpod.io/docs/configure/workspaces/tasks
 tasks:
   - name: Script Task
     # runs during prebuild => https://www.gitpod.io/docs/configure/projects/prebuilds
-    init: npx @teambit/bvm@latest install -y
+    init: |
+      sdk install java 23.0.2-graalce
+      npm install --global npm pnpm prettier eslint style-lint
+      npx @teambit/bvm@latest install -y
     command: ./gradlew build
 
 # List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
