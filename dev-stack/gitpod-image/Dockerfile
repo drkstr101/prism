@@ -38,8 +38,3 @@ RUN bash -c "export GOOGLE_CHROME_VERSION=$(/usr/bin/google-chrome --version | s
   && npm install --location=global chromedriver@\$GOOGLE_CHROME_VERSION \
   && export NODE_PATH='$(npm root --location=global):\$NODE_PATH' \
   && node -e 'console.log(\`export CHROMEDRIVER_FILEPATH=\${ require(\"chromedriver\").path}\`)' >> /home/gitpod/.bashrc.d/99-chromedriver"
-
-# create alias to local nx command
-RUN sdk install java ${java_version} \
-  && sdk default java ${java_version} \
-  && npx @teambit/bvm@latest install -y
