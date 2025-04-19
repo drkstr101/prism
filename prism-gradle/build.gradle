@@ -5,8 +5,9 @@
  */
 
 plugins {
-    // Support convention plugins written in Groovy. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
-    id 'groovy-gradle-plugin'
+  // Support convention plugins written in Groovy. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
+  id 'groovy-gradle-plugin'
+  id 'project-report'
 }
 
 repositories {
@@ -32,7 +33,7 @@ testing {
             targets {
                 all {
                     // This test suite should run after the built-in test suite has run its tests
-                    testTask.configure { shouldRunAfter(test) } 
+                    testTask.configure { shouldRunAfter(test) }
                 }
             }
         }
@@ -51,7 +52,12 @@ gradlePlugin {
 
 gradlePlugin.testSourceSets.add(sourceSets.functionalTest)
 
+tasks.named('build') {
+  // Include functionalTest as part of the check lifecycle
+  dependsOn(tasks.projectReport)
+}
+
 tasks.named('check') {
-    // Include functionalTest as part of the check lifecycle
-    dependsOn(testing.suites.functionalTest)
+  // Include functionalTest as part of the check lifecycle
+  dependsOn(testing.suites.functionalTest)
 }
