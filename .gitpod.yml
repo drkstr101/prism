@@ -6,9 +6,10 @@ tasks:
   - name: Script Task
     # runs during prebuild => https://www.gitpod.io/docs/configure/projects/prebuilds
     init: |
+      export DEBIAN_FRONTEND=noninteractive
       sdk install java 23.0.2-graalce
-      npm install --global npm pnpm prettier eslint style-lint
-      npx @teambit/bvm@latest install -y
+      npm install --global npm pnpm prettier eslint stylelint
+      npx --yes @teambit/bvm@latest install
     command: ./gradlew build
 
 # List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
@@ -17,7 +18,7 @@ ports:
     description: Port 3000 for the frontend
     port: 3000
     onOpen: open-preview
-  - name: API
-    description: Port 8080 for the api
-    port: 8080
+  - name: Model server
+    description: Port 8000 for the model-server proxy
+    port: 8000
     onOpen: notify
