@@ -1,0 +1,40 @@
+name: CI - Gradle Build
+
+on:
+  push:
+    branches:
+      - main
+      - devel
+  pull_request:
+
+permissions:
+  actions: read
+  contents: read
+
+# env:
+# NX_BASE: devel
+
+jobs:
+  gradle:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout project with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Java setup
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Gradle setup
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Gradle Build
+        run: ./gradlew ci

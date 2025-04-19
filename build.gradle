@@ -1,0 +1,40 @@
+plugins {
+  id 'base'
+  id 'project-report'
+  id 'distribution'
+}
+
+tasks.register('cleanPlugin') {
+  group = 'build'
+  description = "Invokes a full clean for prism-gradle"
+
+  dependsOn(gradle.includedBuild('prism-gradle').task(':clean'))
+}
+
+tasks.register('buildPlugin') {
+  group = 'build'
+  description = "Invokes a full build for prism-gradle"
+
+  mustRunAfter(tasks.cleanPlugin)
+  dependsOn(gradle.includedBuild('prism-gradle').task(':build'))
+}
+
+tasks.register('ci') {
+  group = 'build'
+  description = "Initiates a full build and check for CI"
+
+  dependsOn(tasks.clean, tasks.build)
+}
+
+clean {
+  dependsOn(tasks.cleanPlugin)
+}
+
+build {
+  dependsOn(tasks.buildPlugin, tasks.projectReport)
+  mustRunAfter(tasks.clean)
+
+  // doLast {
+  //   println "Build complete."
+  // }
+}
