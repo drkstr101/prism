@@ -5,7 +5,8 @@
  */
 
 plugins {
-  // Support convention plugins written in Groovy. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
+  // Support convention plugins written in Groovy. Convention plugins are build scripts in
+  // 'src/main' that automatically become available as plugins in the main build.
   id 'groovy-gradle-plugin'
   id 'project-report'
 }
@@ -13,41 +14,44 @@ plugins {
 repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
+
+    // Use Maven Central for generic java dependencies
+    mavenCentral()
 }
 
 testing {
     suites {
         // Configure the built-in test suite
         test {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter('5.11.3')
+      // Use JUnit Jupiter test framework
+      useJUnitJupiter('5.11.3')
         }
 
         // Create a new test suite
         functionalTest(JvmTestSuite) {
-            dependencies {
-                // functionalTest test suite depends on the production code in tests
-                implementation project()
-            }
+      dependencies {
+        // functionalTest test suite depends on the production code in tests
+        implementation project()
+      }
 
-            targets {
-                all {
-                    // This test suite should run after the built-in test suite has run its tests
-                    testTask.configure { shouldRunAfter(test) }
-                }
-            }
+      targets {
+        all {
+          // This test suite should run after the built-in test suite has run its tests
+          testTask.configure { shouldRunAfter(test) }
+        }
+      }
         }
     }
 }
 
 gradlePlugin {
-    // Define the plugin
-    plugins {
-        greeting {
-            id = 'org.example.greeting'
-            implementationClass = 'org.example.PrismPlugin'
-        }
+  // Define the plugin
+  plugins {
+    base {
+      id = 'prism.gradle.base'
+      implementationClass = 'prism.gradle.PrismBasePlugin'
     }
+  }
 }
 
 gradlePlugin.testSourceSets.add(sourceSets.functionalTest)
